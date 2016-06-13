@@ -14,8 +14,9 @@ BINDIR = $(PREFIX)/bin
 
 .PHONY: check \
 	install uninstall \
+	docs \
 	clean realclean \
-	releas \
+	release \
 	vendor
 
 check:
@@ -64,6 +65,7 @@ clean:
 realclean: clean
 	$(MAKE) -C vendor clean
 
+
 release:
 	$(RM) $(PKG_NAME)_$(PKG_VERSION)
 	$(MKDIR) $(PKG_NAME)_$(PKG_VERSION)
@@ -71,3 +73,7 @@ release:
 	# $(CP) LICENSE Makefile README.md bin/ lib.sh vendor/
 	tar czf $(PKG_NAME)_$(PKG_VERSION).tar.gz $(PKG_NAME)_$(PKG_VERSION)
 	zip --symlinks -r $(PKG_NAME)_$(PKG_VERSION).zip $(PKG_NAME)_$(PKG_VERSION)
+
+docs:
+	mkdir -p docs
+	shinclude -d -p src/docs -c xml src/docs/OCR-Comparison.md > docs/OCR-Comparison.md
